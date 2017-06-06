@@ -38,6 +38,37 @@ curl -L https://raw.githubusercontent.com/thingsboard/thingsboard/release-1.2/do
 curl -L https://raw.githubusercontent.com/thingsboard/thingsboard/release-1.2/docker/thingsboard-db-schema.env > thingsboard-db-schema.env
 ```
 
+The main docker compose file `docker-compose.yml`: 
+
+```
+version: '2'
+
+services:
+  thingsboard:
+    image: "thingsboard/application:1.2.3"
+    ports:
+      - "8080:8080"
+      - "1883:1883"
+      - "5683:5683/udp"
+    env_file:
+      - thingsboard.env
+    entrypoint: ./run_thingsboard.sh
+  thingsboard-db-schema:
+    image: "thingsboard/thingsboard-db-schema:1.2.3"
+    env_file:
+      - thingsboard-db-schema.env
+    entrypoint: ./install_schema.sh
+  db:
+    image: "cassandra:3.9"
+    volumes:
+      - "${CASSANDRA_DATA_DIR}:/var/lib/cassandra"
+  zk:
+    image: "zookeeper:3.4.9"
+    restart: always
+
+```
+
+
 Create cassandra data directory:
 
 ```
