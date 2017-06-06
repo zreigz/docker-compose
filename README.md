@@ -83,4 +83,4 @@ If you are using local Thingsboard installation you can login to administration 
     Password: tenant
 ```
 
-More info (here)[https://thingsboard.io/docs/getting-started-guides/helloworld/]
+More info [here](https://thingsboard.io/docs/getting-started-guides/helloworld/)
